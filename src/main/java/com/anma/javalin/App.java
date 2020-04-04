@@ -2,7 +2,6 @@ package com.anma.javalin;
 
 import com.anma.javalin.controllers.CatController;
 import com.anma.javalin.controllers.CatControllerImpl;
-import com.anma.javalin.models.Cat;
 import io.javalin.Javalin;
 
 import static io.javalin.apibuilder.ApiBuilder.*;
@@ -29,6 +28,9 @@ public class App {
         app.routes(() -> {
             path("cats", () -> {
                 get(catController::getAllCats);
+                path(":id", () -> {
+                    get(catController::getCatById);
+                });
             });
         });
     }
