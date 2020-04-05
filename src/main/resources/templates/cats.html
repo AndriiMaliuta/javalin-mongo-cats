@@ -6,7 +6,7 @@
 <!--    <link rel="stylesheet" href="../../css/main.css">-->
     <style>
         .container {
-            /*display: flex;*/
+            display: flex;
             /*justify-content: center;*/
         }
 
@@ -15,6 +15,9 @@
             flex-direction: column;
             justify-content: center;
             width: 200px;
+            background: chocolate;
+            margin: 5px;
+            padding: 5px;
         }
 
         .cat-param {
@@ -26,13 +29,12 @@
     </style>
 </head>
 <body>
+    <h2>Cats</h2>
     <div class="container">
-
-        <h2>Cats</h2>
 
         <th:block th:each="cat : ${cats}">
             <div class="cat-div">
-                <p class="cat-param" th:text="${cat.id}"></p>
+<!--                <p class="cat-param" th:text="${cat.id}"></p>-->
                 <p class="cat-param" th:text="${cat.name}"></p>
                 <p class="cat-param" th:text="${cat.age}"></p>
                 <p class="cat-param" th:text="${cat.color}"></p>
