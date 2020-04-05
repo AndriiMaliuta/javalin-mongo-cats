@@ -6,13 +6,15 @@
         <link rel="stylesheet" href="../css/main.css">
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Comic+Neue:wght@300&display=swap');
+        /*font-family: 'Comic Neue', cursive;*/
         .container {
             display: flex;
             /*justify-content: center;*/
             flex-wrap: wrap;
         }
         .input {margin: 3px;}
-        .button {background: chocolate;border-radius: 4px}
+        .button {background: chocolate;border-radius: 4px;padding: 4px}
         .cat-div {
             display: flex;
             flex-direction: column;
@@ -35,6 +37,7 @@
 </head>
 <body>
 <h2>Cats</h2>
+<a class="button" href="/">Home</a>
 <div class="container">
 
 <!--    <th:block th:each="cat : ${cats}">-->
@@ -84,11 +87,11 @@
         if (cat.name === "" || cat.name === null) {
             catNameError.className = "error";
         }
-        if (cat.age === 0) {
+        if (cat.age === 0 || cat.age === null) {
             catAgeError.className = "error";
         }
         if (cat.color === "" || cat.color === null) {
-            catColorError.classList.add("error");
+            catColorError.className = "error";
         }
     }
 
