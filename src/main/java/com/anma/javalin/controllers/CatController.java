@@ -6,6 +6,6 @@ import org.jetbrains.annotations.NotNull;
 public interface CatController {
 
     void getAllCats(@NotNull Context ctx);
-    void getCatById(@NotNull Context ctx);
+    void getCatByName(@NotNull Context ctx);
     void createCat(@NotNull Context context);
 }

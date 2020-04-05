@@ -9,23 +9,27 @@ import javax.xml.bind.annotation.XmlRootElement;
 //@XmlRootElement
 public class Cat {
 
-//    @JsonSerialize(using = ToStringSerializer.class)
-    private String id;
+    @JsonSerialize(using = ToStringSerializer.class)
+    private ObjectId id;
     private String name;
     private int age;
     private String color;
 
-    public Cat(String name, int age, String color) {
+    public Cat() {
+    }
+
+    public Cat(ObjectId id, String name, int age, String color) {
+        this.id = id;
         this.name = name;
         this.age = age;
         this.color = color;
     }
 
-    public String getId() {
+    public ObjectId getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(ObjectId id) {
         this.id = id;
     }
 

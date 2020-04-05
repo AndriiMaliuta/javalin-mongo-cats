@@ -17,7 +17,7 @@ public class CatControllerImpl implements CatController {
     }
 
     @Override
-    public void getCatById(@NotNull Context ctx) {
+    public void getCatByName(@NotNull Context ctx) {
         String name = ctx.pathParam("name");
         ctx.attribute("cat", catRepository.findCatByName(name));
         ctx.render("templates/cat.html");

@@ -26,8 +26,8 @@ public class App {
             path("cats", () -> {
                 get(catController::getAllCats);
                 post(catController::createCat);
-                path(":id", () -> {
-                    get(catController::getCatById);
+                path(":name", () -> {
+                    get(catController::getCatByName);
                 });
             });
             path("rest/cats", () -> {
