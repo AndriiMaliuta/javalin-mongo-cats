@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Cats</title>
+<!--    <link rel="stylesheet" href="../../css/main.css">-->
+    <style>
+        .container {
+            /*display: flex;*/
+            /*justify-content: center;*/
+        }
+
+        .cat-div {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            width: 200px;
+        }
+
+        .cat-param {
+            background-color: bisque;
+            border-radius: 5px;
+            padding: 4px;
+            margin: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+
+        <h2>Cats</h2>
+
+        <th:block th:each="cat : ${cats}">
+            <div class="cat-div">
+                <p class="cat-param" th:text="${cat.id}"></p>
+                <p class="cat-param" th:text="${cat.name}"></p>
+                <p class="cat-param" th:text="${cat.age}"></p>
+                <p class="cat-param" th:text="${cat.color}"></p>
+            </div>
+        </th:block>
+
+    </div>
+
+</body>
+</html>

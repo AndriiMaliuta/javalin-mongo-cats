@@ -1,27 +1,31 @@
 package com.anma.javalin.models;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
+import org.bson.types.ObjectId;
+
 import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement
+//@XmlRootElement
 public class Cat {
 
-    private long id;
+//    @JsonSerialize(using = ToStringSerializer.class)
+    private String id;
     private String name;
     private int age;
     private String color;
 
-    public Cat(long id, String name, int age, String color) {
-        this.id = id;
+    public Cat(String name, int age, String color) {
         this.name = name;
         this.age = age;
         this.color = color;
     }
 
-    public long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

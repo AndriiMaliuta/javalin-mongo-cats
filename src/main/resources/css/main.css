@@ -1,0 +1,17 @@
+.container {
+    display: flex;
+    justify-content: center;
+}
+
+.cat-div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.cat-param {
+    background-color: bisque;
+    border-radius: 5px;
+    padding: 4px;
+    margin: 4px;
+}
