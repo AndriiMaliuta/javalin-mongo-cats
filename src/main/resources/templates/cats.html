@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Cats</title>
-    <!--    <link rel="stylesheet" href="../../css/main.css">-->
+        <link rel="stylesheet" href="../css/main.css">
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <style>
         .container {
@@ -11,11 +11,8 @@
             /*justify-content: center;*/
             flex-wrap: wrap;
         }
-
         .input {margin: 3px;}
-
         .button {background: chocolate;border-radius: 4px}
-
         .cat-div {
             display: flex;
             flex-direction: column;
@@ -25,21 +22,15 @@
             margin: 5px;
             padding: 5px;
         }
-
         .cat-param {
             background-color: bisque;
             border-radius: 5px;
             padding: 4px;
             margin: 4px;
         }
-
-        .hidden {
-            display: none;
-        }
-
-        .show {
-            display: block;
-        }
+        .hidden {display: none;}
+        .show {display: block;}
+        .error {display: block;color: orangered}
     </style>
 </head>
 <body>
@@ -59,17 +50,18 @@
 <br>
 <button class="button" id="add-cat">Add Cat</button>
 <br>
-<div class="hidden">
+<div class="hidden-menu hidden">
     <form action="">
         <h4>Fill in Cat data</h4>
 <!--        <label class="label" for="name">Name</label>-->
         <input class="input" type="text" id="name" name="name" placeholder="Name"><br>
-
+        <p id="cat-name-error" class="hidden">Please enter Cat name</p>
 <!--        <label class="label" for="age">Age</label>-->
         <input class="input" type="number" id="age" name="age" placeholder="Age"><br>
-
+        <p id="cat-age-error" class="hidden">Please enter Cat age</p>
 <!--        <label class="label" for="color">Color</label>-->
         <input class="input" type="text" id="color" name="color" placeholder="Color"><br>
+        <p id="cat-color-error" class="hidden">Please enter Cat color</p>
 
         <button class="button" id="create-cat" type="submit">Create</button>
     </form>
@@ -82,8 +74,23 @@
     const color = document.getElementById("color");
     const createButton = document.getElementById("create-cat");
     const addButton = document.getElementById("add-cat");
-    const modal = document.querySelector(".hidden");
+    const modal = document.querySelector(".hidden-menu");
     const container = document.querySelector(".container");
+    const catNameError = document.getElementById("cat-name-error");
+    const catAgeError = document.getElementById("cat-age-error");
+    const catColorError = document.getElementById("cat-color-error");
+
+    function checkMenuErrors(cat) {
+        if (cat.name === "" || cat.name === null) {
+            catNameError.className = "error";
+        }
+        if (cat.age === 0) {
+            catAgeError.className = "error";
+        }
+        if (cat.color === "" || cat.color === null) {
+            catColorError.classList.add("error");
+        }
+    }
 
     addButton.addEventListener("click", (e) => {
         e.preventDefault();
@@ -97,11 +104,15 @@
             age: age.value,
             color: color.value
         };
+        checkMenuErrors(cat);
         console.log(cat.name, cat.age, cat.color);
-        axios.post("http://localhost:7000/rest/cats", cat)
-            .then(response => console.log(response.data))
-            .catch(error => console.error(error));
-        populateCats();
+
+        if (cat.name !== "" && cat.age !== "" && cat.color !== "") {
+            axios.post("http://localhost:7000/rest/cats", cat)
+                .then(response => console.log(response.data))
+                .catch(error => console.error(error));
+            populateCats();
+        }
     });
 
     function populateCats() {
