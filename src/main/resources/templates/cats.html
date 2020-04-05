@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Cats</title>
-<!--    <link rel="stylesheet" href="../../css/main.css">-->
+    <!--    <link rel="stylesheet" href="../../css/main.css">-->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <style>
         .container {
             display: flex;
@@ -26,22 +27,95 @@
             padding: 4px;
             margin: 4px;
         }
+
+        .hidden {
+            display: none;
+        }
+
+        .show {
+            display: block;
+        }
     </style>
 </head>
 <body>
-    <h2>Cats</h2>
-    <div class="container">
+<h2>Cats</h2>
+<div class="container">
 
-        <th:block th:each="cat : ${cats}">
-            <div class="cat-div">
-                <p class="cat-param" th:text="${cat.id}"></p>
-                <p class="cat-param" th:text="${cat.name}"></p>
-                <p class="cat-param" th:text="${cat.age}"></p>
-                <p class="cat-param" th:text="${cat.color}"></p>
-            </div>
-        </th:block>
+<!--    <th:block th:each="cat : ${cats}">-->
+<!--        <div class="cat-div">-->
+<!--            <p class="cat-param" th:text="${cat.id}"></p>-->
+<!--            <p class="cat-param" th:text="${cat.name}"></p>-->
+<!--            <p class="cat-param" th:text="${cat.age}"></p>-->
+<!--            <p class="cat-param" th:text="${cat.color}"></p>-->
+<!--        </div>-->
+<!--    </th:block>-->
 
-    </div>
+</div>
+
+<button id="add-cat">Add Cat</button>
+<br>
+<div class="hidden">
+    <form action="">
+        <label class="label" for="name">Name</label>
+        <input type="text" id="name" name="name"><br>
+
+        <label class="label" for="age">Age</label>
+        <input type="number" id="age" name="age"><br>
+
+        <label class="label" for="color">Color</label>
+        <input type="text" id="color" name="color"><br>
+
+        <button id="create-cat" type="submit">Create</button>
+    </form>
+
+</div>
+
+<script>
+    const name = document.getElementById("name");
+    const age = document.getElementById("age");
+    const color = document.getElementById("color");
+    const createButton = document.getElementById("create-cat");
+    const addButton = document.getElementById("add-cat");
+    const modal = document.querySelector(".hidden");
+    const container = document.querySelector(".container");
+
+    addButton.addEventListener("click", () => {
+        modal.classList.add("show")
+    });
+
+    const cat = {
+        name: name,
+        age: age,
+        color: color
+    };
+
+    createButton.addEventListener("click", () => {
+        axios.post("http://localhost:7000/rest/cats", cat)
+            .then(response => populateCats())
+    });
+
+    function populateCats() {
+        let cats = [];
+        axios.get("http://localhost:7000/rest/cats")
+            .then(response => {
+                cats = response.data;
+                cats.forEach(cat => {
+                    const catDiv = document.createElement("div");
+                    catDiv.innerHTML = `
+                        <div class="cat-div">
+                            <p class="cat-param">${cat.id}</p>
+                            <p class="cat-param">${cat.name}</p>
+                            <p class="cat-param">${cat.age}</p>
+                            <p class="cat-param">${cat.color}</p>
+                        </div>
+                    `;
+                    container.appendChild(catDiv)})
+            });
+    }
+
+    populateCats();
+
+</script>
 
 </body>
 </html>

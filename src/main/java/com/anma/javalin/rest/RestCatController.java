@@ -16,6 +16,10 @@ public class RestCatController {
         return ctx.json(catRepository.findAllCats());
     }
 
+    public Context getCatByName(@NotNull Context ctx) {
+        return ctx.json(catRepository.findCatByName(ctx.pathParam("name")));
+    }
+
     public Context createCatsREST(@NotNull Context ctx) {
         System.out.println("******** Executing POST inside REST createCatsREST method");
         Cat cat = ctx.bodyAsClass(Cat.class);

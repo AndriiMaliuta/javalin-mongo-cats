@@ -33,6 +33,9 @@ public class App {
             path("rest/cats", () -> {
                 get(restCatController::getAllCatsREST);
                 post(restCatController::createCatsREST);
+                path(":name", () -> {
+                    get(restCatController::getCatByName);
+                });
             });
         });
     }
